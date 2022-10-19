@@ -34,7 +34,7 @@ import Prelude
 
 fromCardanoTxOut :: CApi.TxOut CApi.CtxUTxO CApi.BabbageEra -> Either TxApi.FromCardanoError ChainIndexTxOut
 fromCardanoTxOut (CApi.TxOut caddr val cdatum _refScript) = do
-  addr <- TxApi.fromCardanoAddressInEra caddr
+  Right addr <- TxApi.fromCardanoAddressInEra caddr :: Either TxApi.FromCardanoError Ledger.Address
 
   case Ledger.addressCredential addr of
     ScriptCredential valHash -> do
